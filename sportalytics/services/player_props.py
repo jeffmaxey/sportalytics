@@ -1,3 +1,10 @@
+"""
+Player props service for Sportalytics.
+
+Provides AI-graded player prop recommendations and historical prop
+results used by the Player Props page.
+"""
+
 SAMPLE_PROPS = [
     {
         "player_id": "p001",
@@ -63,7 +70,23 @@ SAMPLE_PROPS = [
 
 
 def get_player_props(sport: str | None = None, grade: str | None = None) -> list[dict]:
-    """Return player props, optionally filtered by sport or grade."""
+    """
+    Return player prop recommendations with optional filtering.
+
+    Parameters
+    ----------
+    sport : str, optional
+        Filter by sport abbreviation, e.g. ``'NBA'``.
+        When ``None`` all sports are returned.
+    grade : str, optional
+        Filter by grade tier: ``'A'``, ``'B'``, ``'C'``, or ``'D'``.
+        When ``None`` all grades are returned.
+
+    Returns
+    -------
+    list of dict
+        Each dict contains ``'player_id'``, ``'player_name'``, ``'sport'``, ``'team'``, ``'game'``, ``'prop_type'``, ``'line'``, ``'recommendation'``, ``'grade'``, ``'hit_rate_last_10'``, ``'avg_last_10'``, ``'implied_prob'``, and ``'model_edge'`` keys.
+    """
     props = list(SAMPLE_PROPS)
     if sport:
         props = [p for p in props if p["sport"] == sport]
@@ -73,11 +96,26 @@ def get_player_props(sport: str | None = None, grade: str | None = None) -> list
 
 
 def get_player_history(player_id: str) -> list[dict]:
-    """Return historical prop results for a player."""
+    """
+    Return historical prop results for a specific player.
+
+    Parameters
+    ----------
+    player_id : str
+        Unique player identifier string, e.g. ``'p001'``.
+
+    Returns
+    -------
+    list of dict
+        Each dict contains ``'date'``, ``'prop_type'``, ``'line'``, ``'result'`` *(actual value)*, and ``'hit'`` *(bool)* keys.
+
+    Notes
+    -----
+    The current implementation returns sample data regardless of
+    ``player_id``.  Future versions will query the database.
+    """
     return [
-        {"date": "2024-01-10", "prop_type": "points", "line": 24.5, "result": 28, "hit": True},
-        {"date": "2024-01-08", "prop_type": "points", "line": 25.5, "result": 22, "hit": False},
-        {"date": "2024-01-06", "prop_type": "points", "line": 26.5, "result": 31, "hit": True},
-        {"date": "2024-01-04", "prop_type": "points", "line": 24.5, "result": 27, "hit": True},
-        {"date": "2024-01-02", "prop_type": "points", "line": 25.5, "result": 25, "hit": False},
+        {"date": "2024-01-10", "prop_type": "points", "line": 24.5, "result": 28,  "hit": True},
+        {"date": "2024-01-08", "prop_type": "points", "line": 25.5, "result": 22,  "hit": False},
+        {"date": "2024-01-06", "prop_type": "points", "line": 26.5, "result": 31,  "hit": True},
     ]

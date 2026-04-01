@@ -1,3 +1,10 @@
+"""
+Model performance tracking service for Sportalytics.
+
+Provides aggregated win/loss records, ROI statistics, and monthly
+performance data used by the Model Tracker page.
+"""
+
 SAMPLE_MODEL_STATS = {
     "overall": {
         "record": "127-98",
@@ -32,10 +39,37 @@ SAMPLE_MODEL_STATS = {
 
 
 def get_model_performance() -> dict:
+    """
+    Return the full model performance statistics dictionary.
+
+    Returns
+    -------
+    dict
+        A nested dict with the following top-level keys:
+
+        * ``'overall'`` — overall record, win rate, ROI, and total picks.
+        * ``'by_sport'`` — list of per-sport performance dicts.
+        * ``'by_tier'`` — list of per-confidence-tier performance dicts.
+        * ``'monthly'`` — list of monthly ROI dicts.
+    """
     return SAMPLE_MODEL_STATS
 
 
 def get_performance_by_sport(sport: str) -> dict:
+    """
+    Return model performance statistics for a single sport.
+
+    Parameters
+    ----------
+    sport : str
+        Sport abbreviation, e.g. ``'NBA'``, ``'NFL'``.
+
+    Returns
+    -------
+    dict
+        Performance dict for the requested sport, or an empty dict if
+        the sport is not found.
+    """
     for s in SAMPLE_MODEL_STATS["by_sport"]:
         if s["sport"] == sport:
             return s
@@ -43,4 +77,13 @@ def get_performance_by_sport(sport: str) -> dict:
 
 
 def get_monthly_roi() -> list[dict]:
+    """
+    Return monthly ROI data for chart rendering.
+
+    Returns
+    -------
+    list of dict
+        Each dict contains ``'month'`` *(str)*, ``'wins'`` *(int)*,
+        ``'losses'`` *(int)*,  and ``'roi'`` *(float)* keys.
+    """
     return SAMPLE_MODEL_STATS["monthly"]
