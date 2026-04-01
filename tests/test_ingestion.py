@@ -1,4 +1,4 @@
-from sportalytics.ingestion.base import BaseIngester, IngestionResult
+from sportalytics.ingestion.base import IngestionResult
 from sportalytics.ingestion.cbb import CBBIngester
 from sportalytics.ingestion.cfb import CFBIngester
 from sportalytics.ingestion.mlb import MLBIngester

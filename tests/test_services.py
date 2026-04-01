@@ -1,4 +1,3 @@
-from sportalytics.services.calculators import american_to_implied
 from sportalytics.services.free_pick import get_free_pick, get_free_pick_history
 from sportalytics.services.live_totals import get_live_games
 from sportalytics.services.marketplace import get_expert_picks, get_experts
